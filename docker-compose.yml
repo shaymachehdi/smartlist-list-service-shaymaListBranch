@@ -1,0 +1,30 @@
+version: '2'
+services:
+  smartlist_flask:
+    build: ./app
+    volumes:
+      - ./app:/app
+    links:
+      - db
+    depends_on:
+      - db
+    ports:
+      - 5000:5000
+    network_mode: bridge
+
+  db:
+    hostname: mysql
+    image: mysql:5.7
+    ports:
+      - 32000:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      #MYSQL_ROOT_HOST: mysql
+      #MYSQL_USER: testing
+      #MYSQL_PASSWORD: pass
+      #MYSQL_HOST: 0.0.0.0
+      #MYSQL_DATABASE: testdb
+    volumes:
+      - ./mysql:/var/lib/mysql
+    network_mode: bridge
+
